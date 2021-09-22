@@ -19,7 +19,7 @@
  * Version:           1.0.0
  * Author:            Guillermo
  * Author URI:        https://netkiub.com
- * GitHub Plugin URI: https://github.com/guillermoscript/pagos-offline-venezuela
+ * GitHub Plugin URI: https://github.com/guillermoscript/wordpress-plugin-boilerplate
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       Plugin
@@ -32,18 +32,28 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // if it is a woocommerce plugin decoment this line 
-// if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) return;
-
-
-
+// if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) return
 
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
 define('PLUGIN_BASE_PATH2', plugin_dir_path( __FILE__ ));
-define('REST_API_NAMESPACE', 'pagos-offline-venezuela');
+define('REST_API_NAMESPACE', 'wordpress-plugin-boilerplate');
 define('REST_API_V1', 'v1');
+
+require 'plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/user-name/repo-name/',
+	__FILE__,
+	'unique-plugin-or-theme-slug'
+);
+
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('stable-branch-name');
+
+//Optional: If you're using a private repository, specify the access token like this:
+$myUpdateChecker->setAuthentication('your-token-here');
 
 // use Admin\Init;
 use Includes\PluginActivator;
@@ -59,19 +69,19 @@ define( 'PLUGIN_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-pagos-offline-venezuela-activator.php
+ * This action is documented in includes/class-wordpress-plugin-boilerplate-activator.php
  */
 function activate_plugin() {
-	// require_once plugin_dir_path( __FILE__ ) . 'includes/class-pagos-offline-venezuela-activator.php';
+	// require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-plugin-boilerplate-activator.php';
 	PluginActivator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-pagos-offline-venezuela-deactivator.php
+ * This action is documented in includes/class-wordpress-plugin-boilerplate-deactivator.php
  */
 function deactivate_plugin() {
-	// require_once plugin_dir_path( __FILE__ ) . 'includes/class-pagos-offline-venezuela-deactivator.php';
+	// require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-plugin-boilerplate-deactivator.php';
 	PluginDeactivator::deactivate();
 }
 
@@ -82,7 +92,7 @@ register_deactivation_hook( __FILE__, 'deactivate_plugin' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-// require plugin_dir_path( __FILE__ ) . 'includes/class-pagos-offline-venezuela.php';
+// require plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-plugin-boilerplate.php';
 
 /**
  * Begins execution of the plugin.
