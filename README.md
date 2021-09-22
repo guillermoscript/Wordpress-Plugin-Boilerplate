@@ -1,2 +1,2 @@
 # Plugin    
-Boiler plate Plugin de wordpress 
+Boilerplate Plugin you can download this plugin to make your own plugin  
